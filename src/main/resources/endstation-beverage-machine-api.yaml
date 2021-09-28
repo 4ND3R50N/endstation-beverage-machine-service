@@ -20,7 +20,7 @@ servers:
           - https
         default: http
 paths:
-  /drinks/ingredients:
+  /drinks/ingredient:
     post:
       summary: "Use this endpoint to create an ingredient"
       tags:
@@ -43,7 +43,7 @@ paths:
         '409':
           description: Ingredient already existed
     get:
-      summary: "Use this endpoint to get all ingredients. Later, this endpoint will supports query parameters for filtering"
+      summary: "Use this endpoint to get all Ingredients. Later, this endpoint will supports query parameters for filtering"
       tags:
         - Ingredient Management
       operationId: getIngredients
@@ -222,38 +222,40 @@ paths:
         '404':
           description: Drink cant be found
 
-  /beverage-machine/ingredience:
+  /beverage-machine/ingredients:
     post:
-      summary: "Use this endpoint to tell the machine which slots contains which ingredients"
+      summary: "Use this endpoint to tell the machine which slots contains which Ingredients"
       tags:
         - Machine Interactions
-      operationId: setIngredienceOnMachine
+      operationId: setSlots
       requestBody:
         description: It is required to send the following request
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MachineIngredienceRequest'
+              $ref: '#/components/schemas/MachineIngredientsRequest'
       responses:
         '200':
-          description: All current ingredience slots
+          description: All current Ingredients slots
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MachineIngredienceResponse'
+                $ref: '#/components/schemas/MachineIngredientsResponse'
+        '404':
+          description: Slot or ingredient not found
     get:
-      summary: "Get all current ingredience slots"
+      summary: "Get all current Ingredient slots"
       tags:
         - Machine Interactions
-      operationId: getIngrediencesFromMachine
+      operationId: getSlots
       responses:
         '200':
-          description: Get all current ingredience slots
+          description: Get all current Ingredients slots
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MachineIngredienceResponse'
+                $ref: '#/components/schemas/MachineIngredientsResponse'
   /beverage-machine/mix:
     post:
       summary: "Use this endpoint trigger the mixing with a specific drink receipt"
@@ -330,7 +332,7 @@ components:
           example: 64441396-d665-4b91-9924-84c87b5f48ce 
         ingredients:
           type: array
-          description: "list of ingredients with exact amount of quantity"
+          description: "list of Ingredients with exact amount of quantity"
           items:
             $ref: '#/components/schemas/DrinkIngredient'
     DrinkDataForMachine:
@@ -339,7 +341,7 @@ components:
       properties:
         ingredients:
           type: array
-          description: "list of ingredients with exact amount of quantity"
+          description: "list of Ingredients with exact amount of quantity"
           items:
             $ref: '#/components/schemas/DrinkIngredient'
     DrinkIngredient:
@@ -367,33 +369,36 @@ components:
           type: integer
           format: int64
           description: "unique id of the drink"
-    MachineIngredienceRequest:
+    MachineIngredientsRequest:
       required:
         - slotId
-        - ingredienceId
+        - ingredientId
       properties:
         slotId:
           type: number
+          minimum: 1
+          maximum: 6
           description: "bottle slot"   
-        ingredienceId:
+        ingredientId:
           type: number
-          description: "ingredience id" 
-    MachineIngredienceResponse:
+          description: "Ingredient id"
+    MachineIngredientsResponse:
       type: array
-      description: "all current slots ids related to the current ingrediences"
+      description: "all current slots ids related to the current Ingredientss"
       items:
         $ref: '#/components/schemas/BottleSlots'
     BottleSlots:
       required:
         - slotId
-        - ingredienceId
+        - ingredientId
       properties:
           slotId:
-            type: number
+            type: integer
             description: "bottle slot"   
-          ingredienceId:
-            type: number
-            description: "ingredience id" 
+          ingredientId:
+            description: "Ingredient id"
+            type: integer
+            format: int64
     MachineMixRequest:
       required:
         - visitorId

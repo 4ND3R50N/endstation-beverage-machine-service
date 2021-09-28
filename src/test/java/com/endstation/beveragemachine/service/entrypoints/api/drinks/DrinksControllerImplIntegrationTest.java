@@ -106,9 +106,9 @@ class DrinksControllerImplIntegrationTest {
                 .liquidType(LiquidTypeEnum.ALCOHOL)
                 .build();
         // when
-        // create two ingredients
-        ResponseEntity<IngredientResponse> resultOne = testRestTemplate.exchange("/api/v1/drinks/ingredients", HttpMethod.POST, new HttpEntity<>(orangeJuice), IngredientResponse.class);
-        ResponseEntity<IngredientResponse> resultTwo = testRestTemplate.exchange("/api/v1/drinks/ingredients", HttpMethod.POST, new HttpEntity<>(vodka), IngredientResponse.class);
+        // create two Ingredients
+        ResponseEntity<IngredientResponse> resultOne = testRestTemplate.exchange("/api/v1/drinks/ingredient", HttpMethod.POST, new HttpEntity<>(orangeJuice), IngredientResponse.class);
+        ResponseEntity<IngredientResponse> resultTwo = testRestTemplate.exchange("/api/v1/drinks/ingredient", HttpMethod.POST, new HttpEntity<>(vodka), IngredientResponse.class);
 
         assertEquals(resultOne.getStatusCode(), HttpStatus.CREATED);
         assertEquals(resultTwo.getStatusCode(), HttpStatus.CREATED);
@@ -131,7 +131,7 @@ class DrinksControllerImplIntegrationTest {
                                 .quantityType(QuantityTypeEnum.CL)
                                 .build()))
                 .build();
-        // create drink with ingredients
+        // create drink with Ingredients
         ResponseEntity<DrinkDataResponse> resultThree = testRestTemplate.exchange("/api/v1/drinks", HttpMethod.POST, new HttpEntity<>(drink), DrinkDataResponse.class);
         assertEquals(resultThree.getStatusCode(), HttpStatus.CREATED);
 

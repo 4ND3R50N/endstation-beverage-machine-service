@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -29,7 +27,7 @@ public class DrinkMapper {
 
         drinkData.getIngredients()
                 .forEach(drinkIngredient -> entity.addConception(DrinkIngredientConceptionEntity.builder()
-                        .ingredient(entityManager.getReference(IngredientEntity.class, drinkIngredient.getIngredientId()))
+                        .ingredient(entityManager.find(IngredientEntity.class, drinkIngredient.getIngredientId()))
                         .amount(drinkIngredient.getAmount().intValue())
                         .quantityType(drinkIngredient.getQuantityType())
                         .build()));

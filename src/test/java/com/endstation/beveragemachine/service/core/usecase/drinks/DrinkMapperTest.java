@@ -44,7 +44,7 @@ class DrinkMapperTest {
                 .ingredientId(1L)
                 .build();
         // when
-        when(entityManager.getReference(IngredientEntity.class, 1L)).thenReturn(ingredientEntity);
+        when(entityManager.find(IngredientEntity.class, 1L)).thenReturn(ingredientEntity);
         DrinkEntity result = drinkMapper.map(drinkData);
 
         // assert

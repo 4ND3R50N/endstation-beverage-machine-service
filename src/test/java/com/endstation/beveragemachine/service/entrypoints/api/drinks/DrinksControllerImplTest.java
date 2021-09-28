@@ -59,7 +59,7 @@ class DrinksControllerImplTest {
     }
 
     @Test
-    void shouldExecuteUpdateIngredientServiceFunction() {
+    void shouldExecuteUpdateIngredientserviceFunction() {
         IngredientData ingredientData = mock(IngredientData.class);
         // when
         controller.updateIngredient(12L, ingredientData);

@@ -1,7 +1,5 @@
 package com.endstation.beveragemachine.service.core.usecase.ingredients;
 
-import com.endstation.beveragemachine.service.dataprovider.db.drinks.DrinkIngredientConceptionRepository;
-import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientEntity;
 import com.endstation.beveragemachine.service.dataprovider.db.ingredients.IngredientsRepository;
 import com.endstation.beveragemachine.service.model.IngredientData;
 import com.endstation.beveragemachine.service.model.IngredientResponse;
